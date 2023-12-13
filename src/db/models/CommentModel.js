@@ -9,7 +9,7 @@ class CommentModel extends BaseModel {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: "PostModel",
         join: {
-          from: "comments.post_id",
+          from: "comments.postId",
           to: "posts.id",
         },
       },
@@ -17,7 +17,7 @@ class CommentModel extends BaseModel {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: "UserModel",
         join: {
-          from: "comments.user_id",
+          from: "comments.userId",
           to: "users.id",
         },
       },
@@ -26,11 +26,3 @@ class CommentModel extends BaseModel {
 }
 
 export default CommentModel
-
-// Structure de la table comments
-// id
-// post_id(clé étrangère vers la table posts)
-// user_id(clé étrangère vers la table users)
-// content
-// createdAt
-// Pas de updatedAt car pas de modification du commentaire

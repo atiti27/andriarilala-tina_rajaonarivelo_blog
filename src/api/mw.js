@@ -4,6 +4,7 @@ import log from "@/api/middlewares/log"
 import methodNotAllowed from "@/api/middlewares/methodNotAllowed"
 import config from "@/config"
 import BaseModel from "@/db/models/BaseModel"
+import UserModel from "@/db/models/UserModel"
 import knex from "knex"
 import { NotFoundError as ObjectionNotFoundError } from "objection"
 
@@ -17,7 +18,9 @@ const mw = (handlers) => async (req, res) => {
 
   const ctx = {
     db,
-    models: {},
+    models: {
+      UserModel,
+    },
     req,
     res,
     next: async () => {

@@ -1,14 +1,15 @@
 export const up = async (db) => {
-  await db.schema.createTable("posts", (table) => {
+  await db.schema.createTable("comments", (table) => {
     table.increments("id")
-    table.text("title").notNullable()
-    table.text("content")
+    table.integer("postId").notNullable()
+    table.foreign("postId").references("id").inTable("posts")
     table.integer("userId").notNullable()
     table.foreign("userId").references("id").inTable("users")
+    table.text("content").notNullable()
     table.timestamps(true, true, true)
   })
 }
 
 export const down = async (db) => {
-  await db.schema.dropTable("posts")
+  await db.schema.dropTable("comments")
 }

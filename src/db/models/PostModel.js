@@ -9,7 +9,7 @@ class PostModel extends BaseModel {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: "UserModel",
         join: {
-          from: "posts.user_id",
+          from: "posts.userId",
           to: "users.id",
         },
       },
@@ -18,7 +18,7 @@ class PostModel extends BaseModel {
         modelClass: "CommentModel",
         join: {
           from: "posts.id",
-          to: "comments.post_id",
+          to: "comments.postId",
         },
       },
     }
@@ -26,11 +26,3 @@ class PostModel extends BaseModel {
 }
 
 export default PostModel
-
-// Structure de la table posts
-// id
-// title
-// content
-// user_id(clé étrangère vers la table users)
-// createdAt
-// updatedAt
