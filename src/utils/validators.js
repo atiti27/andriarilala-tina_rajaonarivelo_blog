@@ -1,7 +1,7 @@
 import { boolean, number, string } from "yup"
 
 export const emailValidator = string().email().required()
-export const usernameValidator = string().required()
+export const usernameValidator = string().min(3).required()
 export const passwordValidator = string()
   .min(10)
   .matches(
@@ -11,3 +11,4 @@ export const passwordValidator = string()
   .required()
 export const idValidator = number().integer().min(1).required()
 export const statusValidator = boolean().required()
+export const contentValidator = string().required()

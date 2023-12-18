@@ -5,6 +5,8 @@ import methodNotAllowed from "@/api/middlewares/methodNotAllowed"
 import config from "@/config"
 import BaseModel from "@/db/models/BaseModel"
 import UserModel from "@/db/models/UserModel"
+import PostModel from "@/db/models/PostModel"
+import CommentModel from "@/db/models/CommentModel"
 import knex from "knex"
 import { NotFoundError as ObjectionNotFoundError } from "objection"
 
@@ -20,6 +22,8 @@ const mw = (handlers) => async (req, res) => {
     db,
     models: {
       UserModel,
+      PostModel,
+      CommentModel,
     },
     req,
     res,

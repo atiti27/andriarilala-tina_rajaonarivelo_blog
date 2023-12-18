@@ -37,7 +37,7 @@ const handle = mw({
       const [passwordHash, passwordSalt] =
         await UserModel.hashPassword(password)
 
-      await UserModel.query().insertAndFetch({
+      await UserModel.query().insert({
         username,
         email,
         passwordHash,
@@ -47,7 +47,7 @@ const handle = mw({
       res.send({ result: true })
     },
   ],
-  // Peut-être rajouter des validate pour les queryParameters
+  // Peut-être rajouter des validate pour les queryParameters, faire un middleware car seul l'admin peut lister les users
   GET: [
     async (ctx) => {
       const {

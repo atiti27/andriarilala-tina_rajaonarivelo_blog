@@ -67,6 +67,7 @@ const handle = mw({
       res.send(updatedUser)
     },
   ],
+  // Seul un admin peut supprimer un user
   DELETE: [
     validate({
       query: {
