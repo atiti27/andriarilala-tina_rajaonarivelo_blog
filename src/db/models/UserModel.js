@@ -1,5 +1,6 @@
 import config from "@/config"
 import BaseModel from "@/db/models/BaseModel"
+import PostModel from "@/db/models/PostModel"
 import { pbkdf2, randomBytes } from "node:crypto"
 import { promisify } from "node:util"
 
@@ -29,7 +30,7 @@ class UserModel extends BaseModel {
     return {
       posts: {
         relation: BaseModel.HasManyRelation,
-        modelClass: "PostModel",
+        modelClass: PostModel,
         join: {
           from: "users.id",
           to: "posts.userId",

@@ -1,4 +1,6 @@
 import BaseModel from "@/db/models/BaseModel"
+import PostModel from "@/db/models/PostModel"
+import UserModel from "@/db/models/UserModel"
 
 class CommentModel extends BaseModel {
   static tableName = "comments"
@@ -7,7 +9,7 @@ class CommentModel extends BaseModel {
     return {
       post: {
         relation: BaseModel.BelongsToOneRelation,
-        modelClass: "PostModel",
+        modelClass: PostModel,
         join: {
           from: "comments.postId",
           to: "posts.id",
@@ -15,7 +17,7 @@ class CommentModel extends BaseModel {
       },
       author: {
         relation: BaseModel.BelongsToOneRelation,
-        modelClass: "UserModel",
+        modelClass: UserModel,
         join: {
           from: "comments.userId",
           to: "users.id",
