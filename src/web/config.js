@@ -16,7 +16,7 @@ const data = {
     itemsPerPage: 10,
   },
 }
-const config = () => {
+const config = (() => {
   try {
     return validationSchema.validateSync(data, {
       stripUnknown: true,
@@ -28,6 +28,6 @@ const config = () => {
   }
 
   return null
-}
+})()
 
 export default config

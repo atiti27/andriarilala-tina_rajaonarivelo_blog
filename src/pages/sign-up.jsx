@@ -3,10 +3,14 @@ import {
   passwordValidator,
   usernameValidator,
 } from "@/utils/validators"
+import Alert from "@/web/components/ui/Alert"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
 import Form from "@/web/components/ui/Form"
 import FormField from "@/web/components/ui/FormField"
+import apiClient from "@/web/services/apiClient"
+import { useMutation } from "@tanstack/react-query"
 import { Formik } from "formik"
+import Link from "next/link"
 import { object } from "yup"
 
 const initialValues = {
@@ -20,8 +24,24 @@ const validationSchema = object({
   password: passwordValidator.label("Password"),
 })
 const SignUpPage = () => {
-  const handleSubmit = (values) => {
-    console.log(values)
+  const { isSuccess, mutateAsync } = useMutation({
+    mutationFn: (values) => apiClient.post("/users", values),
+  })
+  const handleSubmit = async (values) => {
+    await mutateAsync(values)
+  }
+
+  if (isSuccess) {
+    return (
+      <div className="flex flex-col gap-4">
+        <Alert>Your account has been created successfully. </Alert>
+        <p>
+          <Link className="text-blue-500" href="/sign-in">
+            Go to sign-in page.
+          </Link>
+        </p>
+      </div>
+    )
   }
 
   return (
