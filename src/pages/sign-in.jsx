@@ -1,8 +1,13 @@
 import { emailValidator, passwordValidator } from "@/utils/validators"
+import { useSession } from "@/web/components/SessionContext"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
+import ErrorMessage from "@/web/components/ui/ErrorMessage"
 import Form from "@/web/components/ui/Form"
 import FormField from "@/web/components/ui/FormField"
+import apiClient from "@/web/services/apiClient"
+import { useMutation } from "@tanstack/react-query"
 import { Formik } from "formik"
+import { useRouter } from "next/router"
 import { object } from "yup"
 
 const initialValues = {
@@ -14,13 +19,23 @@ const validationSchema = object({
   password: passwordValidator.label("Password"),
 })
 const SignInPage = () => {
-  const handleSubmit = (values) => {
-    console.log(values)
+  const router = useRouter()
+  const { saveSessionToken } = useSession()
+  const { mutateAsync, error } = useMutation({
+    mutationFn: (values) => apiClient.post("/sessions", values),
+  })
+  const handleSubmit = async (values) => {
+    const { result: jwt } = await mutateAsync(values)
+
+    saveSessionToken(jwt)
+
+    router.push("/posts") // TODO: Redirect to posts
   }
 
   return (
     <>
       <h1 className="text-3xl font-semibold p-4 text-center">Sign in</h1>
+      <ErrorMessage error={error} />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

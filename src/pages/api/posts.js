@@ -1,6 +1,6 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
-import { contentValidator } from "@/utils/validators"
+import { contentValidator, idValidator } from "@/utils/validators"
 
 const handle = mw({
   // Middleware pour vérifier que l'user est connecté
@@ -10,6 +10,7 @@ const handle = mw({
       body: {
         title: contentValidator,
         content: contentValidator,
+        userId: idValidator,
       },
     }),
     async (ctx) => {
@@ -21,7 +22,9 @@ const handle = mw({
       const post = await PostModel.query()
         .insertAndFetch(body)
         .withGraphFetched("author")
-
+        .modifyGraph("author", (builder) => {
+          builder.select("username", "email")
+        })
       res.send(post)
     },
   ],
@@ -31,7 +34,12 @@ const handle = mw({
         models: { PostModel },
         res,
       } = ctx
-      const posts = await PostModel.query().select().withGraphFetched("author")
+      const posts = await PostModel.query()
+        .withGraphFetched("author")
+        .modifyGraph("author", (builder) => {
+          builder.select("username", "email")
+        })
+        .orderBy("updatedAt", "desc")
 
       res.send(posts)
     },
