@@ -55,7 +55,6 @@ const handle = mw({
       res.send(updatedPost)
     },
   ],
-  // Pas sûr que le post peut être supprimé car pas de consignes dessus d'après le cahier des charges
   DELETE: [
     validate({
       query: {
@@ -70,9 +69,9 @@ const handle = mw({
         models: { PostModel },
         res,
       } = ctx
-      const deletedPost = await PostModel.query()
+      const deletedPost = await PostModel.query().findById(postId)
 
-      await deletedPost.$query().deleteById(postId)
+      await deletedPost.$query().delete()
 
       res.send(deletedPost)
     },

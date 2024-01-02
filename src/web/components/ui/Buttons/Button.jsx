@@ -2,6 +2,7 @@ import clsx from "clsx"
 
 const variants = {
   primary: "bg-blue-600 active:bg-blue-700 text-white",
+  secondary: "bg-slate-200 text-slate-800",
 }
 const sizes = {
   md: "px-3 py-2 text-xl font-semibold",

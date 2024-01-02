@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "@/web/components/ui/Link"
 
 const Header = () => {
   const isConnected = false // TODO avec state
@@ -6,13 +6,13 @@ const Header = () => {
   return (
     <header className="border-b-2 bg-slate-100">
       <div className="flex md:max-w-3xl mx-auto p-4">
-        <div className="text-2xl">LOGO</div>
+        <div className="text-2xl">BLOG</div>
         <nav className="ms-auto">
           <ul className="flex h-full gap-4 items-center">
             {isConnected ? (
               <>
                 <li>
-                  <Link styless href="/todos/create">
+                  <Link styless={false} href="/todos/create">
                     Create todo
                   </Link>
                 </li>
