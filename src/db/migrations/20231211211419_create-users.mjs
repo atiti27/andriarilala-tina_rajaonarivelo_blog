@@ -5,8 +5,8 @@ export const up = async (db) => {
     table.text("email").notNullable().unique()
     table.text("passwordHash").notNullable()
     table.text("passwordSalt").notNullable()
-    table.boolean("isAdmin")
-    table.boolean("isAuthor")
+    table.boolean("isAdmin").notNullable().defaultTo(false)
+    table.boolean("isAuthor").notNullable().defaultTo(false)
     table.timestamps(true, true, true)
   })
 }
