@@ -3,19 +3,11 @@ import apiClient from "@/web/services/apiClient"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 
-export const getServerSideProps = async () => {
-  const data = await apiClient("/posts")
-
-  return {
-    props: { initialData: data },
-  }
-}
-const PostsPage = ({ initialData }) => {
+const PostsPage = () => {
   const router = useRouter()
   const { isFetching, data: posts } = useQuery({
     queryKey: ["posts"],
     queryFn: () => apiClient("/posts"),
-    initialData,
     enabled: true,
   })
   const handleClick = (id) => () => {

@@ -1,7 +1,8 @@
+import { useSession } from "@/web/components/SessionContext"
 import Link from "@/web/components/ui/Link"
 
 const Header = () => {
-  const isConnected = false // TODO avec state
+  const { session } = useSession()
 
   return (
     <header className="border-b-2 bg-slate-100">
@@ -9,10 +10,10 @@ const Header = () => {
         <div className="text-2xl">BLOG</div>
         <nav className="ms-auto">
           <ul className="flex h-full gap-4 items-center">
-            {isConnected ? (
+            {session ? (
               <>
                 <li>
-                  <Link styless={false} href="/todos/create">
+                  <Link styless href="/todos/create">
                     Create todo
                   </Link>
                 </li>

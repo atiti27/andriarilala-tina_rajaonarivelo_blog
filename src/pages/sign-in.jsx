@@ -29,7 +29,7 @@ const SignInPage = () => {
 
     saveSessionToken(jwt)
 
-    router.push("/posts") // TODO: Redirect to posts
+    router.push("/posts")
   }
 
   return (
