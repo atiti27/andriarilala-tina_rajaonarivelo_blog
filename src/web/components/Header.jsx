@@ -13,8 +13,8 @@ const Header = () => {
             {session ? (
               <>
                 <li>
-                  <Link styless href="/todos/create">
-                    Create todo
+                  <Link styless href="/posts">
+                    Last posts
                   </Link>
                 </li>
                 <li>
