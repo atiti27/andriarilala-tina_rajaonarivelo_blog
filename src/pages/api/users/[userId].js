@@ -8,6 +8,7 @@ import {
   statusValidator,
   usernameValidator,
 } from "@/utils/validators"
+import checkRoles from "@/api/middlewares/checkRoles"
 
 const handle = mw({
   GET: [
@@ -70,7 +71,6 @@ const handle = mw({
       res.send(updatedUser)
     },
   ],
-  // Seul un admin peut supprimer un user
   DELETE: [
     auth,
     validate({
@@ -78,6 +78,7 @@ const handle = mw({
         userId: idValidator,
       },
     }),
+    checkRoles(["isAdmin"]),
     async (ctx) => {
       const {
         input: {

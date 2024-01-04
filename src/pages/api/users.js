@@ -6,9 +6,9 @@ import {
   passwordValidator,
   usernameValidator,
 } from "@/utils/validators"
+import checkRoles from "@/api/middlewares/checkRoles"
 
 const handle = mw({
-  // Rajouter un middleware ou condition pour vérifier que l'user qui fait la requête GET est un admin
   POST: [
     validate({
       body: {
@@ -46,9 +46,9 @@ const handle = mw({
       res.send({ result: true })
     },
   ],
-  // Faire un middleware car seul l'admin peut lister les users
   GET: [
     auth,
+    checkRoles(["isAdmin"]),
     async (ctx) => {
       const {
         models: { UserModel },

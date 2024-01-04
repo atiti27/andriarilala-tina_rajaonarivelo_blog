@@ -2,9 +2,9 @@ import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
 import auth from "@/api/middlewares/auth"
 import { contentValidator } from "@/utils/validators"
+import checkRoles from "@/api/middlewares/checkRoles"
 
 const handle = mw({
-  // Middleware pour vérifier que l'user est un author
   POST: [
     auth,
     validate({
@@ -13,6 +13,7 @@ const handle = mw({
         content: contentValidator,
       },
     }),
+    checkRoles(["isAuthor"]),
     async (ctx) => {
       const {
         input: { body },
