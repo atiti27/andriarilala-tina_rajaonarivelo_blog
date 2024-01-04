@@ -1,9 +1,11 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
+import auth from "@/api/middlewares/auth"
 import { contentValidator, idValidator } from "@/utils/validators"
 
 const handle = mw({
   GET: [
+    auth,
     validate({
       query: {
         postId: idValidator,
@@ -25,7 +27,9 @@ const handle = mw({
       res.send(post)
     },
   ],
+  // Rajouter un middleware ou condition pour vérifier que l'user qui fait la requête PATCH est l'auteur du post en question
   PATCH: [
+    auth,
     validate({
       query: {
         postId: idValidator,
@@ -56,6 +60,7 @@ const handle = mw({
     },
   ],
   DELETE: [
+    auth,
     validate({
       query: {
         postId: idValidator,

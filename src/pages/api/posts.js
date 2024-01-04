@@ -1,34 +1,37 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
-import { contentValidator, idValidator } from "@/utils/validators"
+import auth from "@/api/middlewares/auth"
+import { contentValidator } from "@/utils/validators"
 
 const handle = mw({
-  // Middleware pour vérifier que l'user est connecté
-  // Middleware pour vérifier que l'user est un author et faire la relation d'insertion avec le user
+  // Middleware pour vérifier que l'user est un author
   POST: [
+    auth,
     validate({
       body: {
         title: contentValidator,
         content: contentValidator,
-        userId: idValidator,
       },
     }),
     async (ctx) => {
       const {
         input: { body },
         models: { PostModel },
+        session: { id: userId },
         res,
       } = ctx
       const post = await PostModel.query()
-        .insertAndFetch(body)
+        .insertAndFetch({ userId, ...body })
         .withGraphFetched("author")
         .modifyGraph("author", (builder) => {
           builder.select("username", "email")
         })
+
       res.send(post)
     },
   ],
   GET: [
+    auth,
     async (ctx) => {
       const {
         models: { PostModel },

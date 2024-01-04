@@ -1,5 +1,6 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
+import auth from "@/api/middlewares/auth"
 import {
   emailValidator,
   passwordValidator,
@@ -7,9 +8,7 @@ import {
 } from "@/utils/validators"
 
 const handle = mw({
-  // Rajouter un middleware ou condition pour vérifier que l'user qui fait la requête POST est un admin
   // Rajouter un middleware ou condition pour vérifier que l'user qui fait la requête GET est un admin
-  // Rajouter un middleware ou condition pour vérifier que l'user qui fait la requête soit connecté
   POST: [
     validate({
       body: {
@@ -47,8 +46,9 @@ const handle = mw({
       res.send({ result: true })
     },
   ],
-  // Peut-être rajouter des validate pour les queryParameters, faire un middleware car seul l'admin peut lister les users
+  // Faire un middleware car seul l'admin peut lister les users
   GET: [
+    auth,
     async (ctx) => {
       const {
         models: { UserModel },

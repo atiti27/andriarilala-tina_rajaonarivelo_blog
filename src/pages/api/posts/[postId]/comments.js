@@ -1,9 +1,7 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
-import auth from "@/pages/api/middlewares/auth"
+import auth from "@/api/middlewares/auth"
 import { contentValidator, idValidator } from "@/utils/validators"
-
-// Revoir peut-être l'arborescence de l'API (ex: [postId]/comments => comments d'un post)
 
 const handle = mw({
   POST: [

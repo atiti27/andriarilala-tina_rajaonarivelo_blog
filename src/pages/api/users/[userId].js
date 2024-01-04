@@ -1,5 +1,6 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
+import auth from "@/api/middlewares/auth"
 import {
   emailValidator,
   idValidator,
@@ -10,6 +11,7 @@ import {
 
 const handle = mw({
   GET: [
+    auth,
     validate({
       query: {
         userId: idValidator,
@@ -32,6 +34,7 @@ const handle = mw({
     },
   ],
   PATCH: [
+    auth,
     validate({
       query: {
         userId: idValidator,
@@ -69,6 +72,7 @@ const handle = mw({
   ],
   // Seul un admin peut supprimer un user
   DELETE: [
+    auth,
     validate({
       query: {
         userId: idValidator,
