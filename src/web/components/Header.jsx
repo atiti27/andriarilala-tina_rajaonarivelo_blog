@@ -2,7 +2,7 @@ import { useSession } from "@/web/components/SessionContext"
 import Link from "@/web/components/ui/Link"
 
 const Header = () => {
-  const { session } = useSession()
+  const { session, signOut } = useSession()
 
   return (
     <header className="border-b-2 bg-slate-100">
@@ -20,6 +20,11 @@ const Header = () => {
                 <li>
                   <Link styless href="/categories">
                     List categories
+                  </Link>
+                </li>
+                <li>
+                  <Link styless onClick={() => signOut()} href="/sign-in">
+                    Sign out
                   </Link>
                 </li>
               </>
