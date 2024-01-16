@@ -21,7 +21,10 @@ const handle = mw({
       } = ctx
       const post = await PostModel.query()
         .findById(postId)
-        .withGraphFetched("author")
+        .withGraphFetched("[author,comments]")
+        .modifyGraph("author", (builder) => {
+          builder.select("username")
+        })
         .throwIfNotFound()
 
       res.send(post)
