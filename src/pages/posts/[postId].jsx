@@ -1,3 +1,4 @@
+import { calculateDeltaTime, formatDate } from "@/utils/dateFormatters"
 import { contentValidator } from "@/utils/validators"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
 import Form from "@/web/components/ui/Form"
@@ -17,7 +18,7 @@ const initialValues = {
   content: "",
 }
 const validationSchema = object({
-  content: contentValidator.optional().label("Comment"),
+  content: contentValidator.optional(),
 })
 const PostPage = () => {
   const router = useRouter()
@@ -47,10 +48,9 @@ const PostPage = () => {
     resetForm()
     refetch()
   }
-  console.log("comments", comments)
 
   return (
-    <div className="h-screen clex items-center justify-center">
+    <div className="h-screen">
       {isPostFetching || isCommentsFetching ? (
         <Loader />
       ) : (
@@ -61,7 +61,7 @@ const PostPage = () => {
           <div className="p-2">
             <p>{post.content}</p>
             <p>By {post.author.username}</p>
-            <p>Updated at {post.updatedAt}</p>
+            <p>Last edited: {formatDate(post.updatedAt)}</p>
           </div>
           <div>
             <h2>Comments</h2>
@@ -69,7 +69,7 @@ const PostPage = () => {
               <div key={comment.id}>
                 <p>{comment.content}</p>
                 <p>By {comment.author.username}</p>
-                <p>Updated at {comment.updatedAt}</p>
+                <p>Published {calculateDeltaTime(comment.updatedAt)}</p>
               </div>
             ))}
             <div>
@@ -81,7 +81,6 @@ const PostPage = () => {
                 <Form>
                   <FormField
                     name="content"
-                    label="Comment"
                     type="text"
                     placeholder="Enter your comment"
                   />
