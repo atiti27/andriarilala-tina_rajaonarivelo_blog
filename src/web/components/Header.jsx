@@ -18,8 +18,8 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link styless href="/categories">
-                    List categories
+                  <Link styless href="/settings">
+                    Settings
                   </Link>
                 </li>
                 <li>

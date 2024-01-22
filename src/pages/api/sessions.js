@@ -43,6 +43,8 @@ const handle = mw({
         {
           payload: {
             id: user.id,
+            isAdmin: user.isAdmin,
+            isAuthor: user.isAuthor,
           },
         },
         config.security.jwt.secret,

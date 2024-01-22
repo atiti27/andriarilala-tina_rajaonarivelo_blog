@@ -73,12 +73,12 @@ const handle = mw({
   ],
   DELETE: [
     auth,
+    checkRoles(["isAdmin"]),
     validate({
       query: {
         userId: idValidator,
       },
     }),
-    checkRoles(["isAdmin"]),
     async (ctx) => {
       const {
         input: {
