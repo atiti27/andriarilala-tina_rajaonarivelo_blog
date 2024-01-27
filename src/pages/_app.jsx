@@ -9,7 +9,7 @@ const App = ({ Component, pageProps }) => (
     <SessionProvider>
       <div className="flex flex-col">
         <Header />
-        <section className="p-4">
+        <section className="p-2">
           <div className="md:max-w-3xl p-4 mx-auto">
             <Component {...pageProps} />
           </div>

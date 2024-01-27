@@ -43,5 +43,9 @@ export const calculateDeltaTime = (date) => {
 
   const seconds = Math.floor(deltaTime / SECOND)
 
+  if (seconds === 0) {
+    return "just now"
+  }
+
   return `${seconds} second${seconds > 1 ? "s" : ""} ago`
 }

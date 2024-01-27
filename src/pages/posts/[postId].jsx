@@ -10,9 +10,7 @@ import { Formik } from "formik"
 import { useRouter } from "next/router"
 import { object } from "yup"
 
-// Rajouter fonctions pour les commentaires
 // Changer le style
-// Changer format de la date: dans utils/dateFormatters
 // Ajouter une condition pour vérifier si l'user qui est connecté est l'auteur de ce post pour lui permettre d'éditer
 const initialValues = {
   content: "",

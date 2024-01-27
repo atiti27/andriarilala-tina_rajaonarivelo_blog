@@ -44,7 +44,6 @@ const SettingsPage = () => {
   })
   const handleSubmit = async (values, { resetForm }) => {
     await mutateAsync(values)
-
     resetForm()
     refetch()
   }
