@@ -1,3 +1,4 @@
+import { useClickOutside } from "@/utils/useClickOutside"
 import { useSession } from "@/web/components/SessionContext"
 import SettingsMenu from "@/web/components/SettingsMenu"
 import Link from "@/web/components/ui/Link"
@@ -13,6 +14,8 @@ const Header = () => {
   const toggleSettingsMenu = () => {
     setShowSettingsMenu(!showSettingsMenu)
   }
+
+  useClickOutside(settingsMenuRef, toggleSettingsMenu)
 
   return (
     <header className="border-b-2 bg-slate-100">
