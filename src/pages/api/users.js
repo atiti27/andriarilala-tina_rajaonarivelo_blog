@@ -54,13 +54,9 @@ const handle = mw({
         models: { UserModel },
         res,
       } = ctx
-      const users = await UserModel.query().select(
-        "id",
-        "username",
-        "email",
-        "isAdmin",
-        "isAuthor",
-      )
+      const users = await UserModel.query()
+        .select("id", "username", "email", "isAdmin", "isAuthor", "isEnabled")
+        .orderBy("id")
 
       res.send(users)
     },

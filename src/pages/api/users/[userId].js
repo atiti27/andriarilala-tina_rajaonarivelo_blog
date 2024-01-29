@@ -46,6 +46,7 @@ const handle = mw({
         password: passwordValidator.optional(),
         isAdmin: statusValidator.optional(),
         isAuthor: statusValidator.optional(),
+        isEnabled: statusValidator.optional(),
       },
     }),
     async (ctx) => {
@@ -66,7 +67,7 @@ const handle = mw({
 
       const updatedUser = await UserModel.query()
         .findById(userId)
-        .select("id", "username", "email", "isAdmin", "isAuthor")
+        .select("id", "username", "email", "isAdmin", "isAuthor", "isEnabled")
 
       res.send(updatedUser)
     },
