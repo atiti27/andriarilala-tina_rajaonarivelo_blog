@@ -4,7 +4,12 @@ export const up = async (db) => {
     table.text("title").notNullable()
     table.text("content")
     table.integer("userId").notNullable()
-    table.foreign("userId").references("id").inTable("users")
+    table
+      .foreign("userId")
+      .references("id")
+      .inTable("users")
+      .onUpdate("cascade")
+      .onDelete("cascade")
     table.timestamps(true, true, true)
   })
 }
