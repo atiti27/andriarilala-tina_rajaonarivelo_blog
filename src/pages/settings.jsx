@@ -4,6 +4,7 @@ import {
   usernameValidator,
 } from "@/utils/validators"
 import { useSession } from "@/web/components/SessionContext"
+import Alert from "@/web/components/ui/Alert"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
 import Form from "@/web/components/ui/Form"
 import FormField from "@/web/components/ui/FormField"
@@ -34,7 +35,7 @@ const SettingsPage = () => {
     queryKey: ["user"],
     queryFn: () => apiClient(`/users/${userId}`),
   })
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isSuccess } = useMutation({
     mutationFn: (values) => {
       const validValues = Object.fromEntries(
         Object.entries(values).filter(([, value]) => value !== ""),
@@ -55,6 +56,7 @@ const SettingsPage = () => {
       ) : (
         <>
           <h1>Settings</h1>
+          {isSuccess && <Alert className="my-4">Settings saved</Alert>}
           <h2>Username: {user?.username}</h2>
           <h2>Email: {user?.email}</h2>
           <p>Change your settings</p>
