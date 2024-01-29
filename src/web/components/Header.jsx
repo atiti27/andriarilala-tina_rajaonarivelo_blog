@@ -38,7 +38,7 @@ const Header = () => {
                 </div>
                 {showSettingsMenu && (
                   <div ref={settingsMenuRef} className="absolute">
-                    <SettingsMenu />
+                    <SettingsMenu handleClick={toggleSettingsMenu} />
                   </div>
                 )}
                 <li>

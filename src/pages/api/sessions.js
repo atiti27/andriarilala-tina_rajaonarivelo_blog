@@ -39,6 +39,10 @@ const handle = mw({
         throw new UnauthorizedError()
       }
 
+      if (!user.isEnabled) {
+        throw new UnauthorizedError()
+      }
+
       const jwt = jsonwebtoken.sign(
         {
           payload: {
