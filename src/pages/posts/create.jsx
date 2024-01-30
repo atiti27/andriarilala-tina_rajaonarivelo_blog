@@ -1,4 +1,6 @@
+import { DURATION_TIME } from "@/utils/constants"
 import { contentValidator } from "@/utils/validators"
+import Alert from "@/web/components/ui/Alert"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
 import Form from "@/web/components/ui/Form"
 import FormField from "@/web/components/ui/FormField"
@@ -21,40 +23,42 @@ const CreatePostPage = () => {
   const { isSuccess, mutateAsync } = useMutation({
     mutationFn: (values) => apiClient.post("/posts", values),
   })
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async (values) => {
     await mutateAsync(values)
 
-    if (!isSuccess) {
-      resetForm()
-      // + rajouter une autre erreur
-
-      return
-    }
-
-    router.push("/posts")
-    // Ou créer une route qui va récupérer les posts d'un auteur (la personne même en particulier)
+    setTimeout(() => {
+      router.push("/my-posts")
+    }, DURATION_TIME)
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form>
-        <FormField
-          name="title"
-          type="text"
-          placeholder="Enter the title of your new post"
-        />
-        <FormField
-          name="content"
-          type="text"
-          placeholder="Enter the content of your new post"
-        />
-        <SubmitButton>Publish</SubmitButton>
-      </Form>
-    </Formik>
+    <div className="h-screen clex items-center justify-center">
+      <h1 className="text-3xl font-semibold p-4 items-center">Create Post</h1>
+      {isSuccess && (
+        <Alert variant="success" className="my-4">
+          Your post has been created successfully
+        </Alert>
+      )}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <FormField
+            name="title"
+            type="text"
+            placeholder="Enter the title of your new post"
+          />
+          <FormField
+            name="content"
+            type="text"
+            placeholder="Enter the content of your new post"
+          />
+          <SubmitButton>Publish</SubmitButton>
+        </Form>
+      </Formik>
+    </div>
   )
 }
 

@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { HTTP_ERRORS } from "@/api/constants"
+import { HTTP_ERRORS } from "@/utils/constants"
 
 export class PublicError extends Error {
   httpCode = 0

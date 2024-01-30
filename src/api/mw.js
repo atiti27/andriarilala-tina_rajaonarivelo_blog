@@ -1,4 +1,4 @@
-import { HTTP_ERRORS } from "@/api/constants"
+import { HTTP_ERRORS } from "@/utils/constants"
 import { NotFoundError, PublicError } from "@/api/errors"
 import log from "@/api/middlewares/log"
 import methodNotAllowed from "@/api/middlewares/methodNotAllowed"
