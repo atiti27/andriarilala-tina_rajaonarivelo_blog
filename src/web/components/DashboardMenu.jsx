@@ -1,0 +1,28 @@
+import { useSession } from "@/web/components/SessionContext"
+import Link from "@/web/components/ui/Link"
+
+const DashboardMenu = (props) => {
+  const { handleClick } = props
+  const {
+    session: { isAuthor },
+  } = useSession()
+
+  return (
+    <div className="z-10 mt-2 p-3 shadow-md absolute space-y-2 bg-slate-100 top-right">
+      <li>
+        <Link styless href="/statistics" onClick={handleClick}>
+          My statistics
+        </Link>
+      </li>
+      {isAuthor && (
+        <li>
+          <Link styless href="/my-posts" onClick={handleClick}>
+            My posts
+          </Link>
+        </li>
+      )}
+    </div>
+  )
+}
+
+export default DashboardMenu

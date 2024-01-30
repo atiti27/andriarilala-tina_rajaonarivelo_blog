@@ -1,7 +1,7 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
 import auth from "@/api/middlewares/auth"
-import { contentValidator } from "@/utils/validators"
+import { contentValidator, idValidator } from "@/utils/validators"
 import checkRoles from "@/api/middlewares/checkRoles"
 
 const handle = mw({
@@ -33,17 +33,39 @@ const handle = mw({
   ],
   GET: [
     auth,
+    validate({
+      query: {
+        authorId: idValidator.optional(),
+      },
+    }),
     async (ctx) => {
       const {
+        input: {
+          query: { authorId },
+        },
         models: { PostModel },
         res,
       } = ctx
-      const posts = await PostModel.query()
+      const query = PostModel.query()
+      const posts = await query
+        .clone()
         .withGraphFetched("author")
         .modifyGraph("author", (builder) => {
           builder.select("username", "email")
         })
         .orderBy("updatedAt", "desc")
+
+      if (authorId) {
+        const postsQuery = await query
+          .clone()
+          .where("userId", authorId)
+          .modifyGraph("author", (builder) => {
+            builder.select("username", "email")
+          })
+          .orderBy("updatedAt", "desc")
+
+        res.send(postsQuery)
+      }
 
       res.send(posts)
     },
