@@ -35,7 +35,7 @@ const SignInPage = () => {
   return (
     <>
       <h1 className="text-3xl font-semibold p-4 text-center">Sign in</h1>
-      <ErrorMessage error={error} />
+      <ErrorMessage error={error} className="my-4" />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

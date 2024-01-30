@@ -1,4 +1,4 @@
-import { UnauthorizedError } from "@/api/errors"
+import { ForbiddenError, UnauthorizedError } from "@/api/errors"
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
 import config from "@/config"
@@ -40,7 +40,7 @@ const handle = mw({
       }
 
       if (!user.isEnabled) {
-        throw new UnauthorizedError()
+        throw new ForbiddenError()
       }
 
       const jwt = jsonwebtoken.sign(

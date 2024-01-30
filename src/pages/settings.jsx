@@ -25,8 +25,9 @@ const validationSchema = object({
   password: passwordValidator.optional().label("Password"),
 })
 const SettingsPage = () => {
-  const { session } = useSession()
-  const { id: userId } = session
+  const {
+    session: { id: userId },
+  } = useSession()
   const {
     isFetching,
     data: user,
