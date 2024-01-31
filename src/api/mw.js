@@ -7,6 +7,7 @@ import BaseModel from "@/db/models/BaseModel"
 import UserModel from "@/db/models/UserModel"
 import PostModel from "@/db/models/PostModel"
 import CommentModel from "@/db/models/CommentModel"
+import PostsViewsModel from "@/db/models/PostsViewsModel"
 import knex from "knex"
 import { NotFoundError as ObjectionNotFoundError } from "objection"
 
@@ -24,6 +25,7 @@ const mw = (handlers) => async (req, res) => {
       UserModel,
       PostModel,
       CommentModel,
+      PostsViewsModel,
     },
     req,
     res,

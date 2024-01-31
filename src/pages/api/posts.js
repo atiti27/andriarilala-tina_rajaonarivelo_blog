@@ -73,6 +73,3 @@ const handle = mw({
 })
 
 export default handle
-
-// Ne pas oublier les kpis (posts count) pour le dashboard
-// => Faire fichier/route kpis pour le count des posts et des comments

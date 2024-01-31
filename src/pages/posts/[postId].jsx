@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { calculateDeltaTime, formatDate } from "@/utils/dateFormatters"
 import { contentValidator } from "@/utils/validators"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
@@ -37,6 +38,14 @@ const PostPage = () => {
     queryFn: () => apiClient(`/posts/${postId}/comments`),
     enabled: true,
   })
+  const {
+    isFetching: isViewsCountFetching,
+    data: { commentsCount, viewsCount },
+  } = useQuery({
+    queryKey: ["viewsCount"],
+    queryFn: () => apiClient(`/kpis-post?postId=${postId}`),
+    enabled: true,
+  })
   const { mutateAsync } = useMutation({
     mutationFn: (values) => apiClient.post(`/posts/${postId}/comments`, values),
   })
@@ -60,6 +69,14 @@ const PostPage = () => {
             <p>{post.content}</p>
             <p>By {post.author.username}</p>
             <p>Last edited: {formatDate(post.updatedAt)}</p>
+            <div>
+              {isViewsCountFetching ? null : (
+                <>
+                  <p>👁️ {viewsCount}</p>
+                  <p>💬 {commentsCount}</p>
+                </>
+              )}
+            </div>
           </div>
           <div>
             <h2>Comments</h2>

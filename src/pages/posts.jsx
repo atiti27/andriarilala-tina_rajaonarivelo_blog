@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/dateFormatters"
 import Loader from "@/web/components/ui/Loader"
 import apiClient from "@/web/services/apiClient"
 import { useQuery } from "@tanstack/react-query"
@@ -31,7 +32,7 @@ const PostsPage = () => {
                 <h2>{post.title}</h2>
                 <p className="line-clamp-2">{post.content}</p>
                 <p>By {post.author.username}</p>
-                <p>Updated at {post.updatedAt}</p>
+                <p>Updated at {formatDate(post.updatedAt)}</p>
               </section>
             ))}
           </div>

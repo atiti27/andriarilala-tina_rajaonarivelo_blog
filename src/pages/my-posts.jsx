@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/dateFormatters"
 import { useSession } from "@/web/components/SessionContext"
 import Loader from "@/web/components/ui/Loader"
 import apiClient from "@/web/services/apiClient"
@@ -34,7 +35,7 @@ const MyPostsPage = () => {
               >
                 <h2>{post.title}</h2>
                 <p className="line-clamp-2">{post.content}</p>
-                <p>Updated at {post.updatedAt}</p>
+                <p>Updated at {formatDate(post.updatedAt)}</p>
               </section>
             ))}
           </div>

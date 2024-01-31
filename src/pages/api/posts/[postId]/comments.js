@@ -69,5 +69,3 @@ const handle = mw({
 })
 
 export default handle
-
-// Ne pas oublier les kpis (comments count) pour le dashboard
