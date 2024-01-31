@@ -2,6 +2,7 @@ import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
 import auth from "@/api/middlewares/auth"
 import { contentValidator, idValidator } from "@/utils/validators"
+import { UnauthorizedError } from "@/api/errors"
 
 const handle = mw({
   GET: [
@@ -32,7 +33,6 @@ const handle = mw({
       res.send(post)
     },
   ],
-  // Rajouter un middleware ou condition pour vérifier que l'user qui fait la requête PATCH est l'auteur du post en question
   PATCH: [
     auth,
     validate({
@@ -51,9 +51,19 @@ const handle = mw({
           body,
         },
         models: { PostModel },
+        session: { id: userId },
         res,
       } = ctx
-      const updatedPost = await PostModel.query()
+      const query = PostModel.query()
+      const post = await query.clone().findById(postId)
+      const { userId: authorId } = post
+
+      if (authorId !== userId) {
+        throw new UnauthorizedError()
+      }
+
+      const updatedPost = await query
+        .clone()
         .updateAndFetchById(postId, {
           ...body,
           updatedAt: PostModel.fn.now(),
@@ -77,9 +87,15 @@ const handle = mw({
           query: { postId },
         },
         models: { PostModel },
+        session: { id: userId },
         res,
       } = ctx
       const deletedPost = await PostModel.query().findById(postId)
+      const { userId: authorId } = deletedPost
+
+      if (authorId !== userId) {
+        throw new UnauthorizedError()
+      }
 
       await deletedPost.$query().delete()
 
