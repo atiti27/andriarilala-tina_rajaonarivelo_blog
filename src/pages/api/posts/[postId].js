@@ -16,8 +16,9 @@ const handle = mw({
         input: {
           query: { postId },
         },
-        models: { PostModel },
+        models: { PostModel, PostsViewsModel },
         res,
+        session: { id: userId },
       } = ctx
       const post = await PostModel.query()
         .findById(postId)
@@ -26,6 +27,7 @@ const handle = mw({
           builder.select("username")
         })
         .throwIfNotFound()
+      await PostsViewsModel.query().insert({ postId, userId })
 
       res.send(post)
     },

@@ -23,9 +23,7 @@ const handle = mw({
         .count()
         .where("userId", userId)
 
-      res.send({
-        postsCount,
-      })
+      res.send(postsCount)
     },
   ],
 })

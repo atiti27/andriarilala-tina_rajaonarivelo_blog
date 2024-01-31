@@ -1,6 +1,4 @@
-/* eslint-disable max-lines-per-function */
 import { useClickOutside } from "@/utils/useClickOutside"
-import DashboardMenu from "@/web/components/DashboardMenu"
 import { useSession } from "@/web/components/SessionContext"
 import SettingsMenu from "@/web/components/SettingsMenu"
 import Link from "@/web/components/ui/Link"
@@ -9,21 +7,15 @@ import { useRef, useState } from "react"
 const Header = () => {
   const { session, signOut } = useSession()
   const [showSettingsMenu, setShowSettingsMenu] = useState(false)
-  const [showDashboardMenu, setShowDashboardMenu] = useState(false)
   const settingsMenuRef = useRef(null)
-  const dashboardMenuRef = useRef(null)
   const handleSignOutClick = () => {
     signOut()
   }
   const toggleSettingsMenu = () => {
     setShowSettingsMenu(!showSettingsMenu)
   }
-  const toggleDashboardMenu = () => {
-    setShowDashboardMenu(!showDashboardMenu)
-  }
 
   useClickOutside(settingsMenuRef, toggleSettingsMenu)
-  useClickOutside(dashboardMenuRef, toggleDashboardMenu)
 
   return (
     <header className="border-b-2 bg-slate-100">
@@ -38,16 +30,12 @@ const Header = () => {
                     Last posts
                   </Link>
                 </li>
-                <div
-                  onClick={toggleDashboardMenu}
-                  className="cursor-pointer relative"
-                >
-                  My dashboard
-                </div>
-                {showDashboardMenu && (
-                  <div ref={dashboardMenuRef} className="absolute">
-                    <DashboardMenu handleClick={toggleDashboardMenu} />
-                  </div>
+                {session.isAuthor && (
+                  <li>
+                    <Link styless href="/my-posts">
+                      My posts
+                    </Link>
+                  </li>
                 )}
                 <div
                   onClick={toggleSettingsMenu}

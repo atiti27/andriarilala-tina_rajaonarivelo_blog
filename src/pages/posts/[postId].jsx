@@ -38,10 +38,7 @@ const PostPage = () => {
     queryFn: () => apiClient(`/posts/${postId}/comments`),
     enabled: true,
   })
-  const {
-    isFetching: isViewsCountFetching,
-    data: { commentsCount, viewsCount },
-  } = useQuery({
+  const { isFetching: isViewsCountFetching, data: kpis } = useQuery({
     queryKey: ["viewsCount"],
     queryFn: () => apiClient(`/kpis-post?postId=${postId}`),
     enabled: true,
@@ -72,8 +69,8 @@ const PostPage = () => {
             <div>
               {isViewsCountFetching ? null : (
                 <>
-                  <p>👁️ {viewsCount}</p>
-                  <p>💬 {commentsCount}</p>
+                  <p>👁️ {kpis.viewsCount}</p>
+                  <p>💬 {kpis.commentsCount}</p>
                 </>
               )}
             </div>

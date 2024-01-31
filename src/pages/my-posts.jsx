@@ -15,6 +15,11 @@ const MyPostsPage = () => {
     queryFn: () => apiClient(`/posts?authorId=${userId}`),
     enabled: true,
   })
+  const { isFetching: isPostsCountFetching, data: postCount } = useQuery({
+    queryKey: ["postsCount"],
+    queryFn: () => apiClient(`/kpis-user?userId=${userId}`),
+    enabled: true,
+  })
   const handleClick = (id) => () => {
     router.push(`/posts/${id}`)
   }
@@ -26,6 +31,7 @@ const MyPostsPage = () => {
       ) : (
         <>
           <h1 className="text-3xl font-semibold p-4 items-center">My Posts</h1>
+          {isPostsCountFetching ? null : <p>📰 {postCount} posts</p>}
           <div className="flex flex-col gap-4">
             {posts.map((post) => (
               <section
