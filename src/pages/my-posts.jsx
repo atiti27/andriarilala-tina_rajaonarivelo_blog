@@ -1,23 +1,21 @@
-import { formatDate } from "@/utils/dateFormatters"
 import { useSession } from "@/web/components/SessionContext"
 import Loader from "@/web/components/ui/Loader"
+import PostSection from "@/web/components/ui/PostSection"
 import apiClient from "@/web/services/apiClient"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 
 const MyPostsPage = () => {
-  const {
-    session: { id: userId },
-  } = useSession()
+  const { session } = useSession()
   const router = useRouter()
   const { isFetching, data: posts } = useQuery({
     queryKey: ["posts"],
-    queryFn: () => apiClient(`/posts?authorId=${userId}`),
+    queryFn: () => apiClient(`/posts?authorId=${session.id}`),
     enabled: true,
   })
   const { isFetching: isPostsCountFetching, data: postCount } = useQuery({
     queryKey: ["postsCount"],
-    queryFn: () => apiClient(`/kpis-user?userId=${userId}`),
+    queryFn: () => apiClient(`/kpis-user?userId=${session.id}`),
     enabled: true,
   })
   const handleClick = (id) => () => {
@@ -34,15 +32,11 @@ const MyPostsPage = () => {
           {isPostsCountFetching ? null : <p>📰 {postCount} posts</p>}
           <div className="flex flex-col gap-4">
             {posts.map((post) => (
-              <section
+              <PostSection
+                post={post}
                 key={post.id}
-                className="p-2 rounded-sm bg-slate-200 hover:cursor-pointer hover:bg-slate-300"
-                onClick={handleClick(post.id)}
-              >
-                <h2>{post.title}</h2>
-                <p className="line-clamp-2">{post.content}</p>
-                <p>Updated at {formatDate(post.updatedAt)}</p>
-              </section>
+                handleClick={handleClick}
+              />
             ))}
           </div>
         </>

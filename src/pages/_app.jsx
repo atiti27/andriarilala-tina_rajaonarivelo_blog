@@ -7,9 +7,9 @@ const client = new QueryClient()
 const App = ({ Component, pageProps }) => (
   <QueryClientProvider client={client}>
     <SessionProvider>
-      <div className="flex flex-col">
+      <div className="flex flex-col relative bg-cover bg-center h-screen bg-bg-blog">
         <Header />
-        <section className="p-2">
+        <section className="p-2 mt-16">
           <div className="md:max-w-3xl p-4 mx-auto">
             <Component {...pageProps} />
           </div>

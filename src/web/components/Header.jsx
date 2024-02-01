@@ -1,4 +1,6 @@
+/* eslint-disable max-lines-per-function */
 import { useClickOutside } from "@/utils/useClickOutside"
+import AuthorMenu from "@/web/components/AuthorMenu"
 import { useSession } from "@/web/components/SessionContext"
 import SettingsMenu from "@/web/components/SettingsMenu"
 import Link from "@/web/components/ui/Link"
@@ -7,20 +9,26 @@ import { useRef, useState } from "react"
 const Header = () => {
   const { session, signOut } = useSession()
   const [showSettingsMenu, setShowSettingsMenu] = useState(false)
+  const [showAuthorMenu, setShowAuthorMenu] = useState(false)
   const settingsMenuRef = useRef(null)
+  const authorMenuRef = useRef(null)
   const handleSignOutClick = () => {
     signOut()
   }
   const toggleSettingsMenu = () => {
     setShowSettingsMenu(!showSettingsMenu)
   }
+  const toggleAuthorMenu = () => {
+    setShowAuthorMenu(!showAuthorMenu)
+  }
 
   useClickOutside(settingsMenuRef, toggleSettingsMenu)
+  useClickOutside(authorMenuRef, toggleAuthorMenu)
 
   return (
-    <header className="border-b-2 bg-slate-100">
+    <header className="w-full border-b-2 bg-indigo-100 drop-shadow z-10 fixed">
       <div className="flex md:max-w-5xl mx-auto p-4">
-        <div className="text-2xl">BLOG</div>
+        <div className="text-2xl font-semibold">BLOG</div>
         <nav className="ms-auto">
           <ul className="flex h-full gap-4 items-center">
             {session ? (
@@ -31,11 +39,19 @@ const Header = () => {
                   </Link>
                 </li>
                 {session.isAuthor && (
-                  <li>
-                    <Link styless href="/my-posts">
-                      My posts
-                    </Link>
-                  </li>
+                  <>
+                    <div
+                      onClick={toggleAuthorMenu}
+                      className="cursor-pointer relative"
+                    >
+                      As author
+                    </div>
+                    {showAuthorMenu && (
+                      <div ref={authorMenuRef} className="absolute">
+                        <AuthorMenu handleClick={toggleAuthorMenu} />
+                      </div>
+                    )}
+                  </>
                 )}
                 <div
                   onClick={toggleSettingsMenu}
@@ -67,7 +83,11 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link styless href="/sign-up">
+                  <Link
+                    styless
+                    href="/sign-up"
+                    className="rounded-sm bg-indigo-500 hover:bg-indigo-700 text-white p-2"
+                  >
                     Sign Up
                   </Link>
                 </li>

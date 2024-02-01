@@ -1,5 +1,5 @@
-import { formatDate } from "@/utils/dateFormatters"
 import Loader from "@/web/components/ui/Loader"
+import PostSection from "@/web/components/ui/PostSection"
 import apiClient from "@/web/services/apiClient"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
@@ -18,25 +18,23 @@ const PostsPage = () => {
   return (
     <div className="h-screen clex items-center justify-center">
       {isFetching ? (
-        <Loader />
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
       ) : (
-        <>
+        <div className="md:max-w-3xl mx-auto">
           <h1 className="text-3xl font-semibold p-4 items-center">Posts</h1>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-10">
             {posts.map((post) => (
-              <section
+              <PostSection
+                post={post}
                 key={post.id}
-                className="p-2 rounded-sm bg-slate-200 hover:cursor-pointer hover:bg-slate-300"
-                onClick={handleClick(post.id)}
-              >
-                <h2>{post.title}</h2>
-                <p className="line-clamp-2">{post.content}</p>
-                <p>By {post.author.username}</p>
-                <p>Updated at {formatDate(post.updatedAt)}</p>
-              </section>
+                handleClick={handleClick}
+                isAuthor
+              />
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   )
