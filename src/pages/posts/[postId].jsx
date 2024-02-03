@@ -1,12 +1,12 @@
 /* eslint-disable max-lines-per-function */
-import { calculateDeltaTime, formatDate } from "@/utils/dateFormatters"
+import { formatDate } from "@/utils/dateFormatters"
 import { contentValidator } from "@/utils/validators"
 import PostEdit from "@/web/components/EditPost"
 import { useSession } from "@/web/components/SessionContext"
 import Button from "@/web/components/ui/Buttons/Button"
-import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
+import CommentInput from "@/web/components/ui/CommentInput"
+import CommentSection from "@/web/components/ui/CommentSection"
 import Form from "@/web/components/ui/Form"
-import FormField from "@/web/components/ui/FormField"
 import Loader from "@/web/components/ui/Loader"
 import apiClient from "@/web/services/apiClient"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -15,8 +15,6 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { object } from "yup"
 
-// Changer le style
-// Ajouter une condition pour vérifier si l'user qui est connecté est l'auteur de ce post pour lui permettre d'éditer
 const initialValues = {
   content: "",
 }
@@ -94,14 +92,12 @@ const PostPage = () => {
                 </div>
               </div>
               <div>
-                <h2>Comments</h2>
-                {comments?.map((comment) => (
-                  <div key={comment.id}>
-                    <p>{comment.content}</p>
-                    <p>By {comment.author.username}</p>
-                    <p>Published {calculateDeltaTime(comment.updatedAt)}</p>
-                  </div>
-                ))}
+                <h2 className="text-2xl font-semibold">Comments</h2>
+                <div className="flex flex-col gap-4 p-2">
+                  {comments?.map((comment) => (
+                    <CommentSection key={comment.id} comment={comment} />
+                  ))}
+                </div>
                 <div>
                   <Formik
                     initialValues={initialValues}
@@ -109,12 +105,7 @@ const PostPage = () => {
                     onSubmit={handleSubmit}
                   >
                     <Form>
-                      <FormField
-                        name="content"
-                        type="text"
-                        placeholder="Enter your comment"
-                      />
-                      <SubmitButton>Submit</SubmitButton>
+                      <CommentInput name="content" label="Comment" />
                     </Form>
                   </Formik>
                 </div>
