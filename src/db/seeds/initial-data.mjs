@@ -1,6 +1,6 @@
+/* eslint-disable max-lines-per-function */
 import { faker } from "@faker-js/faker"
 
-// Password of admin is "Azerty1234&"
 export const seed = async (db) => {
   await db("comments").delete()
   await db("posts").delete()
@@ -53,11 +53,14 @@ export const seed = async (db) => {
       [...new Array(30)].map(() => {
         const author =
           users[faker.number.int({ min: 0, max: users.length - 1 })]
+        const date = faker.date.past()
 
         return {
           title: faker.lorem.sentence(),
           content: faker.lorem.paragraphs(),
           userId: author.id,
+          createdAt: date,
+          updatedAt: date,
         }
       }),
     )
@@ -72,6 +75,7 @@ export const seed = async (db) => {
         content: faker.lorem.sentence(),
         userId: author.id,
         postId: post.id,
+        createdAt: faker.date.past(),
       }
     }),
   )

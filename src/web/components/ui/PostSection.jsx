@@ -16,7 +16,7 @@ const PostSection = (props) => {
         </p>
       )}
       <p className="text-gray-600 italic">
-        Updated at {formatDate(post.updatedAt)}
+        Created at {formatDate(post.createdAt)}
       </p>
     </section>
   )
