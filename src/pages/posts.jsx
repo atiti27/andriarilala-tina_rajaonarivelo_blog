@@ -1,3 +1,4 @@
+import { useSession } from "@/web/components/SessionContext"
 import Loader from "@/web/components/ui/Loader"
 import PostSection from "@/web/components/ui/PostSection"
 import apiClient from "@/web/services/apiClient"
@@ -5,11 +6,12 @@ import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 
 const PostsPage = () => {
+  const { session } = useSession()
   const router = useRouter()
   const { isFetching, data: posts } = useQuery({
     queryKey: ["posts"],
     queryFn: () => apiClient("/posts"),
-    enabled: true,
+    enabled: session !== null,
   })
   const handleClick = (id) => () => {
     router.push(`/posts/${id}`)

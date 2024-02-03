@@ -25,9 +25,8 @@ const validationSchema = object({
   password: passwordValidator.optional().label("Password"),
 })
 const SettingsPage = () => {
-  const {
-    session: { id: userId },
-  } = useSession()
+  const { session } = useSession()
+  const userId = session?.id
   const {
     isFetching,
     data: user,
@@ -35,6 +34,7 @@ const SettingsPage = () => {
   } = useQuery({
     queryKey: ["user"],
     queryFn: () => apiClient(`/users/${userId}`),
+    enabled: userId !== null,
   })
   const { mutateAsync, isSuccess } = useMutation({
     mutationFn: (values) => {

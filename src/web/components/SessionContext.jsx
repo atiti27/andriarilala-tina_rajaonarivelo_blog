@@ -1,5 +1,11 @@
 import config from "@/web/config"
-import { createContext, useContext, useEffect, useState } from "react"
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 import jsonwebtoken from "jsonwebtoken"
 import apiClient from "@/web/services/apiClient"
 
@@ -9,20 +15,20 @@ export const useSession = () => useContext(SessionContext)
 
 export const SessionProvider = (props) => {
   const [session, setSession] = useState(null)
-  const saveSessionToken = (jwt) => {
+  const saveSessionToken = useCallback((jwt) => {
     localStorage.setItem(config.security.session.storageKey, jwt)
 
     const { payload } = jsonwebtoken.decode(jwt)
 
     setSession(payload)
-  }
-  const signOut = () => {
+  }, [])
+  const signOut = useCallback(() => {
     localStorage.removeItem(config.security.session.storageKey)
 
     apiClient.delete("/sessions")
 
     setSession(null)
-  }
+  }, [])
 
   useEffect(() => {
     const jwt = localStorage.getItem(config.security.session.storageKey)

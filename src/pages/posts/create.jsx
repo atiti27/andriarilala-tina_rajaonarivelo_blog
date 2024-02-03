@@ -23,9 +23,9 @@ const CreatePostPage = () => {
   const { isSuccess, mutateAsync } = useMutation({
     mutationFn: (values) => apiClient.post("/posts", values),
   })
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     await mutateAsync(values)
-
+    resetForm()
     setTimeout(() => {
       router.push("/my-posts")
     }, DURATION_TIME)

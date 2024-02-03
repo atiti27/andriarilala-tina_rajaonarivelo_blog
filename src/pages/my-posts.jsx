@@ -11,12 +11,12 @@ const MyPostsPage = () => {
   const { isFetching, data: posts } = useQuery({
     queryKey: ["posts"],
     queryFn: () => apiClient(`/posts?authorId=${session.id}`),
-    enabled: true,
+    enabled: session !== null,
   })
   const { isFetching: isPostsCountFetching, data: postCount } = useQuery({
     queryKey: ["postsCount"],
     queryFn: () => apiClient(`/kpis-user?userId=${session.id}`),
-    enabled: true,
+    enabled: session !== null,
   })
   const handleClick = (id) => () => {
     router.push(`/posts/${id}`)

@@ -16,7 +16,7 @@ const AdminPanelPage = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: () => apiClient("/users"),
-    enabled: true,
+    enabled: session !== null,
   })
   const { mutateAsync: updateUser, isSuccess: isUpdatedSuccess } = useMutation({
     mutationFn: (user) => apiClient.patch(`/users/${user.id}`, user),
