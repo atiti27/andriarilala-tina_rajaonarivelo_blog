@@ -15,16 +15,15 @@ const Header = () => {
   const handleSignOutClick = () => {
     signOut()
   }
-  const toggleMenu = (state, handleState) => {
-    handleState(state)
+  const toggleAuthorMenu = () => {
+    setShowAuthorMenu(!showAuthorMenu)
   }
-  const handleToggleMenu = {
-    settings: () => toggleMenu(showSettingsMenu, setShowSettingsMenu),
-    author: () => toggleMenu(showAuthorMenu, setShowAuthorMenu),
+  const toggleSettingsMenu = () => {
+    setShowSettingsMenu(!showSettingsMenu)
   }
 
-  useClickOutside(settingsMenuRef, handleToggleMenu.settings)
-  useClickOutside(authorMenuRef, handleToggleMenu.author)
+  useClickOutside(authorMenuRef, toggleAuthorMenu)
+  useClickOutside(settingsMenuRef, toggleSettingsMenu)
 
   return (
     <header className="w-full border-b-2 bg-indigo-100 drop-shadow z-10 fixed">
@@ -42,27 +41,27 @@ const Header = () => {
                 {session.isAuthor && (
                   <>
                     <div
-                      onClick={handleToggleMenu.author}
+                      onClick={toggleAuthorMenu}
                       className="cursor-pointer relative"
                     >
                       As author
                     </div>
                     {showAuthorMenu && (
                       <div ref={authorMenuRef} className="absolute">
-                        <AuthorMenu handleClick={handleToggleMenu.author} />
+                        <AuthorMenu handleClick={toggleAuthorMenu} />
                       </div>
                     )}
                   </>
                 )}
                 <div
-                  onClick={handleToggleMenu.settings}
+                  onClick={toggleSettingsMenu}
                   className="cursor-pointer relative"
                 >
                   Settings Menu
                 </div>
                 {showSettingsMenu && (
                   <div ref={settingsMenuRef} className="absolute">
-                    <SettingsMenu handleClick={handleToggleMenu.settings} />
+                    <SettingsMenu handleClick={toggleSettingsMenu} />
                   </div>
                 )}
                 <li>

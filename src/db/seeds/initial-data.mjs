@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { faker } from "@faker-js/faker"
 
 export const seed = async (db) => {

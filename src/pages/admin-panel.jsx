@@ -1,7 +1,7 @@
-/* eslint-disable max-lines-per-function */
 import { useSession } from "@/web/components/SessionContext"
 import Alert from "@/web/components/ui/Alert"
 import Loader from "@/web/components/ui/Loader"
+import UsersTable from "@/web/components/ui/UsersTable"
 import apiClient from "@/web/services/apiClient"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
@@ -55,7 +55,7 @@ const AdminPanelPage = () => {
     if (session === null) {
       router.push("/sign-in")
     }
-  }, [session])
+  }, [session, router])
 
   return (
     <div className="h-screen clex items-center justify-center">
@@ -65,56 +65,19 @@ const AdminPanelPage = () => {
         </div>
       ) : (
         <>
-          <h1>Admin Panel</h1>
-          <h2>Users</h2>
+          <h1 className="text-3xl font-semibold p-4">Admin Panel</h1>
+          <h2 className="text-2xl font-semibold mb-2">Users</h2>
           {showAlert && (
             <Alert className="my-4">
               Changes have been changed successfully
             </Alert>
           )}
-          <table className="w-full border-collapse border-blue-300 border-solid border-2">
-            <thead>
-              <tr>
-                <th className="p-2">Username</th>
-                <th className="p-2">Email</th>
-                <th className="p-2">Author ?</th>
-                <th className="p-2">Enabled ?</th>
-                <th className="p-2">🗑️</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users?.map((user) => {
-                if (session.id === user.id) {
-                  return null
-                }
-
-                return (
-                  <tr
-                    key={user.id}
-                    className="bg-slate-100 hover:bg-slate-200 cursor-pointer"
-                  >
-                    <td className="p-2">{user.username}</td>
-                    <td className="p-2">{user.email}</td>
-                    <td className="p-2">
-                      <button onClick={handleClickUpdateAuthorRole(user.id)}>
-                        {user.isAuthor ? "✅" : "❌"}
-                      </button>
-                    </td>
-                    <td className="p-2">
-                      <button onClick={handleClickUpdateEnabled(user.id)}>
-                        {user.isEnabled ? "✅" : "❌"}
-                      </button>
-                    </td>
-                    <td className="p-2">
-                      <button onClick={handleClickDelete(user.id)}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <UsersTable
+            users={users}
+            handleUpdate={handleClickUpdateAuthorRole}
+            handleEnable={handleClickUpdateEnabled}
+            handleDelete={handleClickDelete}
+          />
         </>
       )}
     </div>
