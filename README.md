@@ -30,9 +30,15 @@ You have to run migrations to construct the database. But first, create your dat
 npx knex migrate:latest
 ```
 
-### Seed
+### Seeds
 
-Now, you will need to generate data. You can run the seeds files with this command line:
+Now, you will need to generate fake data.
+
+You can connect with an administrator account. Just because I couldn't export the hashPassword method, you have to give manually a passwordHash and a passwordSalt according to your password peper.
+
+What you can do before is create a lambda user and go to the database panel to pick the passwordHash and the passwordSalt, so you can add it to the seed file "initial-data.mjs".
+
+You can run the seeds files with this command line:
 
 ```bash
 npx knex seed:run
@@ -45,10 +51,3 @@ All you have to do finally is to run the development server:
 ```bash
 npm run dev
 ```
-
-You can connect with an administrator account. Just because I couldn't export the hashPassword method, I had to give manually a passwordHash and a passwordSalt.
-
-So for the test, admin credentials are:
-
-- email: admin@example.com
-- password: Azerty1234&
