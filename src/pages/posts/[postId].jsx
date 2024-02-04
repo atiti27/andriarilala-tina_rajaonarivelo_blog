@@ -62,7 +62,9 @@ const PostPage = () => {
   return (
     <div className="h-screen">
       {isPostFetching || isCommentsFetching || isViewsCountFetching ? (
-        <Loader />
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
       ) : (
         <>
           {toggleEdit && session.id === post.userId ? (

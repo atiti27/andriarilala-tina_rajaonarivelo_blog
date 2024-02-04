@@ -37,7 +37,7 @@ const PostsPage = () => {
             </Alert>
           ) : (
             <div className="flex flex-col gap-10">
-              {posts.map((post) => (
+              {posts?.map((post) => (
                 <PostSection
                   post={post}
                   key={post.id}

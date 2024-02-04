@@ -25,13 +25,15 @@ const MyPostsPage = () => {
   return (
     <div className="h-screen clex items-center justify-center">
       {isFetching ? (
-        <Loader />
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
       ) : (
         <>
           <h1 className="text-3xl font-semibold p-4 items-center">My Posts</h1>
           {isPostsCountFetching ? null : <p>📰 {postCount} posts</p>}
           <div className="flex flex-col gap-4">
-            {posts.map((post) => (
+            {posts?.map((post) => (
               <PostSection
                 post={post}
                 key={post.id}

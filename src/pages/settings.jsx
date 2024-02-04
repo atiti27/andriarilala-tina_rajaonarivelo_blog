@@ -62,10 +62,12 @@ const SettingsPage = () => {
   return (
     <div>
       {isFetching ? (
-        <Loader />
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
       ) : (
         <>
-          <h1>Settings</h1>
+          <h1 className="text-3xl font-semibold p-4 items-center">Settings</h1>
           <h2>Username: {user?.username}</h2>
           <h2>Email: {user?.email}</h2>
           <p>Change your settings</p>

@@ -55,7 +55,9 @@ const AdminPanelPage = () => {
       <h1>Admin Panel</h1>
       <h2>Users</h2>
       {isFetching ? (
-        <Loader />
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
       ) : (
         <>
           {showAlert && (
