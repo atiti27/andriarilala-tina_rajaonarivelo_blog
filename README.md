@@ -4,11 +4,11 @@
 
 Short summary of what the project is
 
-## Add your .env.local file
-
-You'll need to create a .env.local file based on the .env.local.txt file that is in the project as an exemple. This file has to be at the root of the project.
-
 ## Getting Started
+
+### DB
+
+You need first to create a database. Keep the name, user and password on mind, you will need it for connection into the database you will create (see section .env.local below).
 
 ### Migrations
 
@@ -25,6 +25,10 @@ Now, you will need to generate data. You can run the seeds files with this comma
 ```bash
 npx knex seed:run
 ```
+
+## Add your .env.local file
+
+You'll need to create a .env.local file based on the .env.local.txt file that is in the project as an exemple. This file has to be at the root of the project.
 
 ## Running project
 
