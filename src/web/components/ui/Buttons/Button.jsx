@@ -1,11 +1,11 @@
 import clsx from "clsx"
 
 const variants = {
-  primary: "bg-blue-600 active:bg-blue-700 text-white",
-  secondary: "bg-slate-200 text-slate-800",
+  primary: "bg-indigo-500 active:bg-indigo-700 text-white",
 }
 const sizes = {
-  md: "px-3 py-2 text-xl font-semibold",
+  sm: "px-3 py-2 text-xl font-semibold",
+  md: "px-5 py-2.5 text-sm font-medium",
 }
 const Button = ({
   variant = "primary",

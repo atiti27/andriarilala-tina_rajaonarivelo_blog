@@ -1,5 +1,4 @@
 /* eslint-disable max-lines-per-function */
-import { formatDate } from "@/utils/dateFormatters"
 import { contentValidator } from "@/utils/validators"
 import PostEdit from "@/web/components/EditPost"
 import { useSession } from "@/web/components/SessionContext"
@@ -8,6 +7,7 @@ import CommentInput from "@/web/components/ui/CommentInput"
 import CommentSection from "@/web/components/ui/CommentSection"
 import Form from "@/web/components/ui/Form"
 import Loader from "@/web/components/ui/Loader"
+import PostArticle from "@/web/components/ui/PostArticle"
 import apiClient from "@/web/services/apiClient"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Formik } from "formik"
@@ -61,7 +61,7 @@ const PostPage = () => {
 
   return (
     <div className="h-screen">
-      {isPostFetching || isCommentsFetching ? (
+      {isPostFetching || isCommentsFetching || isViewsCountFetching ? (
         <Loader />
       ) : (
         <>
@@ -69,26 +69,16 @@ const PostPage = () => {
             <PostEdit post={post} setToggleEdit={setToggleEdit} />
           ) : (
             <>
-              <div className="p-2 flex flex-col">
-                <h1 className="text-3xl font-semibold p-4 items-center">
-                  {post.title}
-                </h1>
+              <div className="pb-4 flex flex-row gap-4">
+                <PostArticle post={post} kpis={kpis} />
                 {session?.id === post?.userId && (
-                  <Button onClick={handleClick}>Edit</Button>
+                  <Button
+                    onClick={handleClick}
+                    className={"w-[100px] h-[40px] rounded-lg z-10"}
+                  >
+                    Edit
+                  </Button>
                 )}
-              </div>
-              <div className="p-2">
-                <p>{post.content}</p>
-                <p>By {post.author.username}</p>
-                <p>Last edited: {formatDate(post.updatedAt)}</p>
-                <div>
-                  {isViewsCountFetching ? null : (
-                    <>
-                      <p>👁️ {kpis.viewsCount}</p>
-                      <p>💬 {kpis.commentsCount}</p>
-                    </>
-                  )}
-                </div>
               </div>
               <div>
                 <h2 className="text-2xl font-semibold">Comments</h2>

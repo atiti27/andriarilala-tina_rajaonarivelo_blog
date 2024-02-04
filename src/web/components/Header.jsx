@@ -86,7 +86,7 @@ const Header = () => {
                   <Link
                     styless
                     href="/sign-up"
-                    className="rounded-sm bg-indigo-500 hover:bg-indigo-700 text-white p-2"
+                    className="rounded-sm bg-indigo-500 active:bg-indigo-700 text-white p-2"
                   >
                     Sign Up
                   </Link>

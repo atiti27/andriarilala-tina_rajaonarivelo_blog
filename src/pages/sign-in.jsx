@@ -54,7 +54,9 @@ const SignInPage = () => {
             type="password"
             placeholder="Enter your password"
           />
-          <SubmitButton>Sign In</SubmitButton>
+          <SubmitButton className="text-center rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900">
+            Sign In
+          </SubmitButton>
         </Form>
       </Formik>
     </>

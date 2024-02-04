@@ -1,14 +1,15 @@
 import { DURATION_TIME } from "@/utils/constants"
 import { contentValidator } from "@/utils/validators"
 import Alert from "@/web/components/ui/Alert"
-import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
 import Form from "@/web/components/ui/Form"
-import FormField from "@/web/components/ui/FormField"
+import FormField from "@/web/components/ui/Fields/FormField"
 import apiClient from "@/web/services/apiClient"
 import { useMutation } from "@tanstack/react-query"
 import { Formik } from "formik"
 import { useRouter } from "next/router"
 import { object } from "yup"
+import CreationPostBox from "@/web/components/ui/Fields/CreationPostBox"
+import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
 
 const initialValues = {
   title: "",
@@ -46,16 +47,15 @@ const CreatePostPage = () => {
       >
         <Form>
           <FormField
+            label="Title"
             name="title"
             type="text"
             placeholder="Enter the title of your new post"
           />
-          <FormField
-            name="content"
-            type="text"
-            placeholder="Enter the content of your new post"
-          />
-          <SubmitButton>Publish</SubmitButton>
+          <CreationPostBox name="content" />
+          <SubmitButton className="text-center text-white rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900">
+            Publish post
+          </SubmitButton>
         </Form>
       </Formik>
     </div>
