@@ -6,6 +6,14 @@ This project is a Blog app where you can consult various posts, interact with it
 
 ## Getting Started
 
+### Install packages
+
+Before running, you need to import necessary packages. Just run this command:
+
+```bash
+npm install
+```
+
 ### DB
 
 You need first to create a postgresql database. Keep the name, user and password on mind, you will need it for connection into the database you will create (see section .env.local below).
@@ -31,12 +39,6 @@ npx knex seed:run
 You'll need to create a .env.local file based on the .env.local.txt file that is in the project as an exemple. This file has to be at the root of the project.
 
 ## Running project
-
-Before running, you need to import necessary packages. Just run this command:
-
-```bash
-npm install
-```
 
 All you have to do finally is to run the development server:
 
