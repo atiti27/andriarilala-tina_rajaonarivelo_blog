@@ -61,7 +61,7 @@ const handle = mw({
           builder.select("username")
         })
         .where("postId", postId)
-        .orderBy("createdAt", "desc")
+        .orderBy("createdAt", "asc")
 
       res.send(comments)
     },
