@@ -1,56 +1,23 @@
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
 import auth from "@/api/middlewares/auth"
-import {
-  emailValidator,
-  idValidator,
-  passwordValidator,
-  statusValidator,
-  usernameValidator,
-} from "@/utils/validators"
+import { idValidator, statusValidator } from "@/utils/validators"
 import checkRoles from "@/api/middlewares/checkRoles"
-import checkUniqueness from "@/api/middlewares/checkUniqueness"
 
 const handle = mw({
-  GET: [
-    auth,
-    validate({
-      query: {
-        userId: idValidator,
-      },
-    }),
-    async (ctx) => {
-      const {
-        input: {
-          query: { userId },
-        },
-        models: { UserModel },
-        res,
-      } = ctx
-      const user = await UserModel.query()
-        .findById(userId)
-        .select("id", "username", "email", "isAdmin", "isAuthor")
-        .throwIfNotFound()
-
-      res.send(user)
-    },
-  ],
   PATCH: [
     auth,
+    checkRoles(["isAdmin"]),
     validate({
       query: {
         userId: idValidator,
       },
       body: {
-        username: usernameValidator.optional(),
-        email: emailValidator.optional(),
-        password: passwordValidator.optional(),
         isAdmin: statusValidator.optional(),
         isAuthor: statusValidator.optional(),
         isEnabled: statusValidator.optional(),
       },
     }),
-    checkUniqueness,
     async (ctx) => {
       const {
         input: {

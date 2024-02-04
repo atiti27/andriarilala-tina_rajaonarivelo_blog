@@ -38,7 +38,7 @@ const SettingsPage = () => {
     refetch,
   } = useQuery({
     queryKey: ["user"],
-    queryFn: () => apiClient(`/users/${userId}`),
+    queryFn: () => apiClient(`/profile/${userId}`),
     enabled: userId !== null,
   })
   const { mutateAsync, isSuccess, isError, error } = useMutation({
@@ -46,7 +46,7 @@ const SettingsPage = () => {
       const validValues = Object.fromEntries(
         Object.entries(values).filter(([, value]) => value !== ""),
       )
-      apiClient.patch(`/users/${userId}`, validValues)
+      apiClient.patch(`/profile/${userId}`, validValues)
     },
   })
   const handleSubmit = async (values, { resetForm }) => {
@@ -58,7 +58,7 @@ const SettingsPage = () => {
     if (session === null) {
       router.push("/sign-in")
     }
-  }, [session])
+  }, [session, router])
 
   if (isSuccess) {
     return <Alert className="my-4">Settings saved</Alert>
