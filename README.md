@@ -2,7 +2,7 @@
 
 ## About the project
 
-Short summary of what the project is
+This project is a Blog app where you can consult various posts, interact with it, etc.
 
 ## Getting Started
 
@@ -31,6 +31,12 @@ npx knex seed:run
 You'll need to create a .env.local file based on the .env.local.txt file that is in the project as an exemple. This file has to be at the root of the project.
 
 ## Running project
+
+Before running, you need to import necessary packages. Just run this command:
+
+```bash
+npm install
+```
 
 All you have to do finally is to run the development server:
 
