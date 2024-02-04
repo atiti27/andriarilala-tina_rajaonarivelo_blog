@@ -8,7 +8,7 @@ Short summary of what the project is
 
 ### DB
 
-You need first to create a database. Keep the name, user and password on mind, you will need it for connection into the database you will create (see section .env.local below).
+You need first to create a postgresql database. Keep the name, user and password on mind, you will need it for connection into the database you will create (see section .env.local below).
 
 ### Migrations
 
