@@ -94,7 +94,7 @@ const PostPage = () => {
                     onSubmit={handleSubmit}
                   >
                     <Form>
-                      <CommentInput name="content" label="Comment" />
+                      <CommentInput name="content" label="Add Comment" />
                     </Form>
                   </Formik>
                 </div>

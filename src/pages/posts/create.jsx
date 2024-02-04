@@ -27,19 +27,23 @@ const CreatePostPage = () => {
   const handleSubmit = async (values, { resetForm }) => {
     await mutateAsync(values)
     resetForm()
+  }
+
+  if (isSuccess) {
     setTimeout(() => {
       router.push("/my-posts")
     }, DURATION_TIME)
+
+    return (
+      <Alert variant="success" className="my-4">
+        Your post has been created successfully
+      </Alert>
+    )
   }
 
   return (
     <div className="h-screen clex items-center justify-center">
       <h1 className="text-3xl font-semibold p-4 items-center">Create Post</h1>
-      {isSuccess && (
-        <Alert variant="success" className="my-4">
-          Your post has been created successfully
-        </Alert>
-      )}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

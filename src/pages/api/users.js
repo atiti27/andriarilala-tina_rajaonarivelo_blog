@@ -7,6 +7,7 @@ import {
   usernameValidator,
 } from "@/utils/validators"
 import checkRoles from "@/api/middlewares/checkRoles"
+import checkUniqueness from "@/api/middlewares/checkUniqueness"
 
 const handle = mw({
   POST: [
@@ -17,6 +18,7 @@ const handle = mw({
         password: passwordValidator,
       },
     }),
+    checkUniqueness,
     async (ctx) => {
       const {
         input: {

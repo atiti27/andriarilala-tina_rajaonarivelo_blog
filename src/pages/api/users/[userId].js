@@ -9,6 +9,7 @@ import {
   usernameValidator,
 } from "@/utils/validators"
 import checkRoles from "@/api/middlewares/checkRoles"
+import checkUniqueness from "@/api/middlewares/checkUniqueness"
 
 const handle = mw({
   GET: [
@@ -49,6 +50,7 @@ const handle = mw({
         isEnabled: statusValidator.optional(),
       },
     }),
+    checkUniqueness,
     async (ctx) => {
       const {
         input: {

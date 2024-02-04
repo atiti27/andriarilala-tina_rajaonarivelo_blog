@@ -9,7 +9,7 @@ import Form from "@/web/components/ui/Form"
 import FormField from "@/web/components/ui/Fields/FormField"
 import apiClient from "@/web/services/apiClient"
 import { useMutation } from "@tanstack/react-query"
-import { Formik } from "formik"
+import { ErrorMessage, Formik } from "formik"
 import Link from "next/link"
 import { object } from "yup"
 
@@ -24,7 +24,7 @@ const validationSchema = object({
   password: passwordValidator.label("Password"),
 })
 const SignUpPage = () => {
-  const { isSuccess, mutateAsync } = useMutation({
+  const { isSuccess, isError, error, mutateAsync } = useMutation({
     mutationFn: (values) => apiClient.post("/users", values),
   })
   const handleSubmit = async (values) => {
@@ -42,6 +42,10 @@ const SignUpPage = () => {
         </p>
       </div>
     )
+  }
+
+  if (isError) {
+    return <ErrorMessage error={error} />
   }
 
   return (
