@@ -35,7 +35,7 @@ const CreatePostPage = () => {
     if (session === null) {
       router.push("/sign-in")
     }
-  }, [session])
+  }, [session, router])
 
   if (isSuccess) {
     setTimeout(() => {

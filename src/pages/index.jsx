@@ -19,7 +19,7 @@ const IndexPage = () => {
         <div className="p-4 flex flex-col items-center justify-center gap-2 w-1/2">
           <p>Already have an account?</p>
           <Button
-            className={"rounded-md shadow-md hover:bg-slate-400"}
+            className={"rounded-md shadow-md hover:bg-indigo-700"}
             onClick={handleClick("/sign-in")}
           >
             Sign In
@@ -30,7 +30,7 @@ const IndexPage = () => {
             Don't have an account ? Want to discover more?
           </p>
           <Button
-            className={"rounded-md shadow-md hover:bg-slate-400"}
+            className={"rounded-md shadow-md hover:bg-indigo-700"}
             onClick={handleClick("/sign-up")}
           >
             Sign Up

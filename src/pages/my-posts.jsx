@@ -26,7 +26,7 @@ const MyPostsPage = () => {
     if (session === null) {
       router.push("/sign-in")
     }
-  }, [session])
+  }, [session, router])
 
   return (
     <div className="h-screen clex items-center justify-center">

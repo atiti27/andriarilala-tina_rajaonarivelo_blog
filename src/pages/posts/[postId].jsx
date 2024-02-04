@@ -62,7 +62,7 @@ const PostPage = () => {
     if (session === null) {
       router.push("/sign-in")
     }
-  }, [session])
+  }, [session, router])
 
   return (
     <div className="h-screen">
