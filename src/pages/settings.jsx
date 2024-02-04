@@ -14,6 +14,9 @@ import { Formik } from "formik"
 import { object } from "yup"
 import ErrorMessage from "@/web/components/ui/ErrorMessage"
 import Alert from "@/web/components/ui/Alert"
+import { useEffect } from "react"
+import { useRouter } from "next/router"
+import ProfileSettingsSection from "@/web/components/ui/ProfileSettingsSection"
 
 const initialValues = {
   username: "",
@@ -27,6 +30,7 @@ const validationSchema = object({
 })
 const SettingsPage = () => {
   const { session } = useSession()
+  const router = useRouter()
   const userId = session?.id
   const {
     isFetching,
@@ -50,6 +54,11 @@ const SettingsPage = () => {
     resetForm()
     refetch()
   }
+  useEffect(() => {
+    if (session === null) {
+      router.push("/sign-in")
+    }
+  }, [session])
 
   if (isSuccess) {
     return <Alert className="my-4">Settings saved</Alert>
@@ -68,8 +77,7 @@ const SettingsPage = () => {
       ) : (
         <>
           <h1 className="text-3xl font-semibold p-4 items-center">Settings</h1>
-          <h2>Username: {user?.username}</h2>
-          <h2>Email: {user?.email}</h2>
+          <ProfileSettingsSection user={user} />
           <p>Change your settings</p>
           <Formik
             initialValues={initialValues}

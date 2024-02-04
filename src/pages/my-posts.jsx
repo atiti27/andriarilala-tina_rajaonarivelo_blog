@@ -4,6 +4,7 @@ import PostSection from "@/web/components/ui/PostSection"
 import apiClient from "@/web/services/apiClient"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 const MyPostsPage = () => {
   const { session } = useSession()
@@ -21,6 +22,11 @@ const MyPostsPage = () => {
   const handleClick = (id) => () => {
     router.push(`/posts/${id}`)
   }
+  useEffect(() => {
+    if (session === null) {
+      router.push("/sign-in")
+    }
+  }, [session])
 
   return (
     <div className="h-screen clex items-center justify-center">

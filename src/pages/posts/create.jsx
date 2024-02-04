@@ -10,6 +10,8 @@ import { useRouter } from "next/router"
 import { object } from "yup"
 import CreationPostBox from "@/web/components/ui/Fields/CreationPostBox"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
+import { useEffect } from "react"
+import { useSession } from "@/web/components/SessionContext"
 
 const initialValues = {
   title: "",
@@ -20,6 +22,7 @@ const validationSchema = object({
   content: contentValidator.label("Content"),
 })
 const CreatePostPage = () => {
+  const { session } = useSession()
   const router = useRouter()
   const { isSuccess, mutateAsync } = useMutation({
     mutationFn: (values) => apiClient.post("/posts", values),
@@ -28,6 +31,11 @@ const CreatePostPage = () => {
     await mutateAsync(values)
     resetForm()
   }
+  useEffect(() => {
+    if (session === null) {
+      router.push("/sign-in")
+    }
+  }, [session])
 
   if (isSuccess) {
     setTimeout(() => {

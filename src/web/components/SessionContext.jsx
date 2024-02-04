@@ -14,7 +14,20 @@ const SessionContext = createContext()
 export const useSession = () => useContext(SessionContext)
 
 export const SessionProvider = (props) => {
-  const [session, setSession] = useState(null)
+  const initializeSession = () => {
+    if (typeof window === "undefined") {
+      return null
+    }
+
+    const jwt = localStorage.getItem(config.security.session.storageKey)
+
+    if (!jwt) {
+      return null
+    }
+
+    return jsonwebtoken.decode(jwt).payload
+  }
+  const [session, setSession] = useState(initializeSession())
   const saveSessionToken = useCallback((jwt) => {
     localStorage.setItem(config.security.session.storageKey, jwt)
 
@@ -31,15 +44,19 @@ export const SessionProvider = (props) => {
   }, [])
 
   useEffect(() => {
-    const jwt = localStorage.getItem(config.security.session.storageKey)
+    const getSession = () => {
+      const jwt = localStorage.getItem(config.security.session.storageKey)
 
-    if (!jwt) {
-      return
+      if (!jwt) {
+        return
+      }
+
+      const { payload } = jsonwebtoken.decode(jwt)
+
+      setSession(payload)
     }
 
-    const { payload } = jsonwebtoken.decode(jwt)
-
-    setSession(payload)
+    getSession()
   }, [])
 
   return (

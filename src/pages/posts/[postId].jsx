@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { contentValidator } from "@/utils/validators"
-import PostEdit from "@/web/components/EditPost"
+import PostEdit from "@/web/components/PostEdit"
 import { useSession } from "@/web/components/SessionContext"
 import Button from "@/web/components/ui/Buttons/Button"
 import CommentInput from "@/web/components/ui/CommentInput"
@@ -12,7 +12,7 @@ import apiClient from "@/web/services/apiClient"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Formik } from "formik"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { object } from "yup"
 
 const initialValues = {
@@ -58,6 +58,11 @@ const PostPage = () => {
   const handleClick = () => {
     setToggleEdit(true)
   }
+  useEffect(() => {
+    if (session === null) {
+      router.push("/sign-in")
+    }
+  }, [session])
 
   return (
     <div className="h-screen">

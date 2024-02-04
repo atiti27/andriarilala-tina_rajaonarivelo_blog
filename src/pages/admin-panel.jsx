@@ -4,9 +4,11 @@ import Alert from "@/web/components/ui/Alert"
 import Loader from "@/web/components/ui/Loader"
 import apiClient from "@/web/services/apiClient"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 const AdminPanelPage = () => {
+  const router = useRouter()
   const { session } = useSession()
   const [showAlert, setShowAlert] = useState(false)
   const {
@@ -49,17 +51,22 @@ const AdminPanelPage = () => {
       setShowAlert(true)
     }
   }, [isUpdatedSuccess, isDeletedSuccess])
+  useEffect(() => {
+    if (session === null) {
+      router.push("/sign-in")
+    }
+  }, [session])
 
   return (
     <div className="h-screen clex items-center justify-center">
-      <h1>Admin Panel</h1>
-      <h2>Users</h2>
       {isFetching ? (
         <div className="flex items-center justify-center h-screen">
           <Loader />
         </div>
       ) : (
         <>
+          <h1>Admin Panel</h1>
+          <h2>Users</h2>
           {showAlert && (
             <Alert className="my-4">
               Changes have been changed successfully
@@ -76,7 +83,7 @@ const AdminPanelPage = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => {
+              {users?.map((user) => {
                 if (session.id === user.id) {
                   return null
                 }
