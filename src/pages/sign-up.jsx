@@ -6,7 +6,7 @@ import {
 import Alert from "@/web/components/ui/Alert"
 import SubmitButton from "@/web/components/ui/Buttons/SubmitButton"
 import Form from "@/web/components/ui/Form"
-import FormField from "@/web/components/ui/FormField"
+import FormField from "@/web/components/ui/Fields/FormField"
 import apiClient from "@/web/services/apiClient"
 import { useMutation } from "@tanstack/react-query"
 import { Formik } from "formik"

@@ -52,7 +52,6 @@ const PostPage = () => {
   })
   const handleSubmit = async (values, { resetForm }) => {
     await publishComment(values)
-
     resetForm()
     refetch()
   }
